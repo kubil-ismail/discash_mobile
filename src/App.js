@@ -12,7 +12,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
-import Test from './route/member-routes';
+// import Test from './route/member-routes';
+
+// Auth
+import Login from './screens/auth/login';
 
 export default class App extends Component {
   componentDidMount() {
@@ -29,9 +32,14 @@ export default class App extends Component {
             <Stack.Navigator>
               <Stack.Screen
                 options={{ headerShown: false }}
+                component={Login}
+                name={'login'}
+              />
+              {/* <Stack.Screen
+                options={{ headerShown: false }}
                 component={Test}
                 name={'welcome'}
-              />
+              /> */}
             </Stack.Navigator>
           </NavigationContainer>
         </PersistGate>
