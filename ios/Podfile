@@ -12,6 +12,8 @@ target 'discash_mobile' do
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'discash_mobileTests' do
     inherit! :complete
     # Pods for testing
