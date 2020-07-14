@@ -12,7 +12,7 @@ export default class Member extends Component {
     return (
       <BottomTab.Navigator
         tabBarOptions={{
-          activeTintColor: '#102336',
+          activeTintColor: '#3f3d56',
           style: styles.tabBar,
         }}
       >
