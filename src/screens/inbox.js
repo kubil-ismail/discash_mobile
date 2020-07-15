@@ -4,8 +4,6 @@ import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { Header, ListItem } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import avatar from '../assets/profile.png';
-
 export default class inbox extends Component {
   render() {
     return (
@@ -34,6 +32,7 @@ export default class inbox extends Component {
             leftIcon={
               <Icon solid name="envelope-open" size={30} color="#6d6d6d" />
             }
+            containerStyle={styles.read}
             title="Info Login"
             subtitle="Today, 13.43 PM"
             bottomDivider
@@ -51,5 +50,8 @@ const styles = StyleSheet.create({
   },
   fontColor: {
     color: '#3f3d56',
+  },
+  read: {
+    backgroundColor: '#f7f7f7',
   },
 });
