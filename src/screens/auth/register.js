@@ -8,6 +8,7 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  ToastAndroid,
 } from 'react-native';
 import { Button, Image, Input, Text } from 'react-native-elements';
 
@@ -23,6 +24,29 @@ export default class register extends Component {
       password2: null,
       isLoading: false,
     };
+  }
+
+  onRegister = () => {
+    const {
+      email,
+      phone,
+      password,
+      password2,
+    } = this.state;
+    if (email && phone && password && password2) {
+      if (password.length >= 8) {
+        if (password === password2) {
+          this.setState({ isLoading: true });
+          ToastAndroid.show('Allowed', ToastAndroid.SHORT);
+        } else {
+          ToastAndroid.show('Password not match', ToastAndroid.SHORT);
+        }
+      } else {
+        ToastAndroid.show('Password must be greater than 8 characters', ToastAndroid.SHORT);
+      }
+    } else {
+      ToastAndroid.show('All form must filled', ToastAndroid.SHORT);
+    }
   }
 
   render() {
@@ -89,7 +113,7 @@ export default class register extends Component {
             title="Register"
             loading={isLoading}
             buttonStyle={styles.bgRed}
-            onPress={() => this.onLogin()}
+            onPress={() => this.onRegister()}
           />
           {/* eslint-disable-next-line react-native/no-inline-styles */}
           <View style={{ marginTop: 20 }} />

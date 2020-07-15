@@ -8,6 +8,7 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  ToastAndroid,
 } from 'react-native';
 import { Button, Image, Input, Text } from 'react-native-elements';
 
@@ -21,6 +22,16 @@ export default class login extends Component {
       password: null,
       isLoading: false,
     };
+  }
+
+  onForget = () => {
+    const { email } = this.state;
+    if (email) {
+      this.setState({ isLoading: true });
+      ToastAndroid.show('Allowed', ToastAndroid.SHORT);
+    } else {
+      ToastAndroid.show('Email must filled', ToastAndroid.SHORT);
+    }
   }
 
   render() {
@@ -51,7 +62,7 @@ export default class login extends Component {
             title="Send"
             loading={isLoading}
             buttonStyle={styles.bgRed}
-            onPress={() => this.onLogin()}
+            onPress={() => this.onForget()}
           />
           {/* eslint-disable-next-line react-native/no-inline-styles */}
           <View style={{ marginTop: 20 }} />

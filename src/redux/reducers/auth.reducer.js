@@ -1,8 +1,9 @@
 /* eslint-disable prettier/prettier */
 // Initial State
 const initialState = {
-  loggedIn: false,
   apikey: null,
+  loggedIn: false,
+  pinRequired: true,
   profile: [],
   isLoading: false,
   isError: false,
