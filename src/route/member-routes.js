@@ -6,7 +6,7 @@ import { StyleSheet } from 'react-native';
 
 // Import Screens
 import Home from '../screens/home';
-
+import History from '../screens/history';
 import Inbox from '../screens/inbox';
 import Profile from '../screens/profile';
 
@@ -38,8 +38,8 @@ export default class Member extends Component {
               <Icon name="history" color={color} size={size} />
             ),
           }}
-          component={Home}
-          name="home2"
+          component={History}
+          name="history"
         />
         <BottomTab.Screen
           options={{

@@ -4,7 +4,7 @@ import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { Header, ListItem } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-export default class inbox extends Component {
+export default class history extends Component {
   render() {
     return (
       <SafeAreaView>
@@ -12,7 +12,7 @@ export default class inbox extends Component {
           <Header
             placement="left"
             leftComponent={{
-              text: 'Inbox',
+              text: 'History',
               style: {
                 color: styles.fontColor,
                 fontSize: 20,
@@ -26,20 +26,9 @@ export default class inbox extends Component {
           <ListItem
             key={1}
             leftIcon={
-              <Icon solid name="envelope" size={30} />
+              <Icon solid name="money-bill" size={30} />
             }
-            title="Info Login"
-            subtitle="Today, 13.43 PM"
-            bottomDivider
-            chevron
-          />
-          <ListItem
-            key={2}
-            leftIcon={
-              <Icon solid name="envelope-open" size={30} />
-            }
-            containerStyle={styles.read}
-            title="Info Login"
+            title="Top Up Pulsa"
             subtitle="Today, 13.43 PM"
             bottomDivider
             chevron

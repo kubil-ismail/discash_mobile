@@ -17,7 +17,7 @@ export default class authRoutes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogin: false,
+      isLogin: true,
     };
   }
 
@@ -26,7 +26,7 @@ export default class authRoutes extends Component {
     return (
       <Stack.Navigator>
         {/* NOT LOGIN SCREENS */}
-        {!isLogin && (
+        {isLogin === false && (
           <>
             <Stack.Screen
               options={{ headerShown: false }}
