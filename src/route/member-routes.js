@@ -4,7 +4,12 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet } from 'react-native';
 
+// Import Screens
 import Home from '../screens/home';
+
+import Inbox from '../screens/inbox';
+import Profile from '../screens/profile';
+
 const BottomTab = createBottomTabNavigator();
 
 export default class Member extends Component {
@@ -18,7 +23,7 @@ export default class Member extends Component {
       >
         <BottomTab.Screen
           options={{
-            title: 'Beranda',
+            title: 'Home',
             tabBarIcon: ({ color, size }) => (
               <Icon name="home" color={color} size={size} />
             ),
@@ -28,7 +33,7 @@ export default class Member extends Component {
         />
         <BottomTab.Screen
           options={{
-            title: 'Riwayat',
+            title: 'History',
             tabBarIcon: ({ color, size }) => (
               <Icon name="history" color={color} size={size} />
             ),
@@ -38,7 +43,7 @@ export default class Member extends Component {
         />
         <BottomTab.Screen
           options={{
-            title: 'Bayar',
+            title: 'Pay',
             tabBarIcon: ({ color, size }) => (
               <Icon name="qrcode" color={color} size={size} />
             ),
@@ -53,18 +58,18 @@ export default class Member extends Component {
               <Icon name="envelope" color={color} size={size} />
             ),
           }}
-          component={Home}
+          component={Inbox}
           name="Inbox"
         />
         <BottomTab.Screen
           options={{
-            title: 'Akun',
+            title: 'Account',
             tabBarIcon: ({ color, size }) => (
               <Icon name="user" color={color} size={size} />
             ),
           }}
-          component={Home}
-          name="home5"
+          component={Profile}
+          name="profile"
         />
       </BottomTab.Navigator>
     );
