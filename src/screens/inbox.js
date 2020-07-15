@@ -14,7 +14,7 @@ export default class inbox extends Component {
             leftComponent={{
               text: 'Inbox',
               style: {
-                color: styles.fontColor,
+                color: '#3f3d56',
                 fontSize: 20,
               },
              }}

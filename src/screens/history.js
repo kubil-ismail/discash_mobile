@@ -14,7 +14,7 @@ export default class history extends Component {
             leftComponent={{
               text: 'History',
               style: {
-                color: styles.fontColor,
+                color: '#3f3d56',
                 fontSize: 20,
               },
              }}

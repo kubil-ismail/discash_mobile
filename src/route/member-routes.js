@@ -35,7 +35,7 @@ export default class Member extends Component {
           options={{
             title: 'History',
             tabBarIcon: ({ color, size }) => (
-              <Icon name="history" color={color} size={size} />
+              <Icon name="receipt" color={color} size={size} />
             ),
           }}
           component={History}
