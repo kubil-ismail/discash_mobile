@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet } from 'react-native';
 
-import Home from '../screens/welcome';
+import Home from '../screens/home';
 const BottomTab = createBottomTabNavigator();
 
 export default class Member extends Component {
@@ -48,7 +48,7 @@ export default class Member extends Component {
         />
         <BottomTab.Screen
           options={{
-            title: 'Home 2',
+            title: 'Inbox',
             tabBarIcon: ({ color, size }) => (
               <Icon name="envelope" color={color} size={size} />
             ),

@@ -9,9 +9,9 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { Button, Image, Input } from 'react-native-elements';
+import { Button, Image, Input, Text } from 'react-native-elements';
 
-import svg from '../../assets/vector/access_account.png';
+import svg from '../../assets/vector/unlock.png';
 
 export default class login extends Component {
   constructor(props) {
@@ -27,13 +27,14 @@ export default class login extends Component {
     const { isLoading } = this.state;
     return (
       <SafeAreaView style={styles.container}>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <Image
             source={svg}
             style={styles.svg}
             resizeMode="contain"
             PlaceholderContent={<ActivityIndicator />}
           />
+          <Text h3 style={styles.title}>Login</Text>
           <Input
             placeholder="Email address"
             keyboardType={'email-address'}
@@ -42,7 +43,7 @@ export default class login extends Component {
               <Icon
                 name="envelope"
                 size={17}
-                color="black"
+                color="#3f3d56"
               />
             }
           />
@@ -54,7 +55,7 @@ export default class login extends Component {
               <Icon
                 name="lock"
                 size={24}
-                color="black"
+                color="#3f3d56"
               />
             }
           />
@@ -69,9 +70,11 @@ export default class login extends Component {
           <Button
             title="Create new account"
             type="clear"
-            titleStyle={styles.textRed}
-            onPress={() => this.props.navigation.navigate('sign-up')}
+            titleStyle={styles.outlineBtn}
+            onPress={() => this.props.navigation.navigate('register')}
           />
+          {/* eslint-disable-next-line react-native/no-inline-styles */}
+          <View style={{ marginTop: 20 }} />
         </ScrollView>
       </SafeAreaView>
     );
@@ -95,7 +98,12 @@ const styles = StyleSheet.create({
   bgRed: {
     backgroundColor: '#f70000',
   },
-  textRed: {
+  outlineBtn: {
+    color: '#3f3d56',
+  },
+  title: {
+    textAlign: 'center',
+    marginBottom: 20,
     color: '#3f3d56',
   },
 });
