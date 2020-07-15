@@ -3,16 +3,9 @@ import React, {Component} from 'react';
 import { PersistGate } from 'redux-persist/integration/react'; // Imports: Redux Persist Persister
 import { Provider } from 'react-redux';
 import { store, persistor } from './redux/store'; // React Native: App
-
 import { NavigationContainer } from '@react-navigation/native';
 import SplashScreen from 'react-native-splash-screen'; // Imports: Splash Screen
-
-// Navigator
-import { createStackNavigator } from '@react-navigation/stack';
-
-const Stack = createStackNavigator();
-
-import Test from './route/member-routes';
+import Routes from './route/routes';
 
 export default class App extends Component {
   componentDidMount() {
@@ -26,13 +19,7 @@ export default class App extends Component {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <NavigationContainer>
-            <Stack.Navigator>
-              <Stack.Screen
-                options={{ headerShown: false }}
-                component={Test}
-                name={'welcome'}
-              />
-            </Stack.Navigator>
+            <Routes />
           </NavigationContainer>
         </PersistGate>
       </Provider>
