@@ -1,10 +1,10 @@
 /* eslint-disable prettier/prettier */
 // Initial State
 const initialState = {
-  apikey: null,
-  loggedIn: false,
-  pinRequired: true,
-  profile: [],
+  apikey: 1234,
+  loggedIn: true,
+  pinRequired: false,
+  userId: 30,
   isLoading: false,
   isError: false,
   errMsg: null,
