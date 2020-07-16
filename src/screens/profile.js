@@ -3,22 +3,31 @@ import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
 
+// Imports: Redux Actions
+import { connect } from 'react-redux';
+import { GET_PROFILE } from '../redux/actions/profile.actions';
+
 import avatar from '../assets/profile.png';
 
-export default class profile extends Component {
+export class profile extends Component {
+  componentDidMount = () => {
+    const { userId } = this.props.auth;
+    this.props.GET_PROFILE({ id: userId });
+  }
+
   render() {
+    const { profile_data } = this.props.profile;
     return (
       <SafeAreaView>
         <ScrollView>
           <ListItem
             key={1}
             leftAvatar={{ source: avatar }}
-            title="Araki Sensei"
-            subtitle="089630080545"
+            title={profile_data.fullname}
+            subtitle={profile_data.phone}
             bottomDivider
             chevron
           />
-
           <View style={styles.mt_10} />
           <ListItem
             key={2}
@@ -37,14 +46,14 @@ export default class profile extends Component {
           <ListItem
             key={4}
             title="Email"
-            subtitle="***ki@gmail.com"
+            subtitle={profile.email}
             bottomDivider
             chevron
           />
           <ListItem
             key={5}
             title="Change Pin"
-            subtitle="***7"
+            subtitle="****"
             bottomDivider
             chevron
           />
@@ -93,3 +102,24 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
+
+// Map State To Props (Redux Store Passes State To Component)
+const mapStateToProps = (state) => {
+  // Redux Store --> Component
+  return {
+    auth: state.authReducer,
+    profile: state.profileReducer,
+  };
+};
+
+// Map Dispatch To Props (Dispatch Actions To Reducers. Reducers Then Modify The Data And Assign It To Your Props)
+const mapDispatchToProps = (dispatch) => {
+  // Action
+  return {
+    // GET_PROFILE
+    GET_PROFILE: (trueFalse) => dispatch(GET_PROFILE(trueFalse)),
+  };
+};
+
+// Exports
+export default connect(mapStateToProps, mapDispatchToProps)(profile);
