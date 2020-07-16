@@ -8,6 +8,12 @@ target 'discash_mobile' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'discash_mobileTests' do
     inherit! :complete
     # Pods for testing
