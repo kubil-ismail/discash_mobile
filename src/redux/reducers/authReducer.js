@@ -4,6 +4,9 @@ const initialState = {
   apikey: null,
   loggedIn: false,
   pinRequired: false,
+  pinStatus: false,
+  payRequired: false,
+  payStatus: false,
   userId: null,
   isLoading: false,
   isError: false,
@@ -51,6 +54,41 @@ const authReducer = (state = initialState, action) => {
         };
       }
     }
+
+    // PIN reducer
+    case 'SET_PIN': {
+      if (action.payload) {
+        return {
+          ...state,
+          pinRequired: true,
+          pinStatus: false,
+        };
+      } else {
+        return {
+          ...state,
+          pinRequired: false,
+          pinStatus: true,
+        };
+      }
+    }
+
+    // PAYMENT reducer
+    case 'SET_PAYMENT': {
+      if (action.payload) {
+        return {
+          ...state,
+          payRequired: true,
+          payStatus: false,
+        };
+      } else {
+        return {
+          ...state,
+          payRequired: false,
+          payStatus: true,
+        };
+      }
+    }
+
     // Logout reducer
     case 'LOGOUT': {
       return {

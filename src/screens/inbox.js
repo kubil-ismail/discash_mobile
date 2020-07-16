@@ -1,6 +1,12 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+} from 'react-native';
 import { Header, ListItem } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -23,16 +29,20 @@ export default class inbox extends Component {
           />
 
           <View style={styles.mt_10} />
-          <ListItem
-            key={1}
-            leftIcon={
-              <Icon solid name="envelope" size={30} />
-            }
-            title="Info Login"
-            subtitle="Today, 13.43 PM"
-            bottomDivider
-            chevron
-          />
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('detailInbox')}
+          >
+            <ListItem
+              key={1}
+              leftIcon={
+                <Icon solid name="envelope" size={30} />
+              }
+              title="Info Login"
+              subtitle="Today, 13.43 PM"
+              bottomDivider
+              chevron
+            />
+          </TouchableOpacity>
           <ListItem
             key={2}
             leftIcon={

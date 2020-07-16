@@ -38,6 +38,7 @@ export class profile extends Component {
     return (
       <SafeAreaView>
         <Loader isLoading={profile_loading} />
+
         <ScrollView>
           <View style={styles.mt_10} />
 
@@ -45,13 +46,13 @@ export class profile extends Component {
             <ListItem
               key={1}
               leftAvatar={{ source: avatar }}
-              title={profile_loading ? '-' : profile_data.fullname }
+              title={profile_loading === false ? profile_data.fullname : '-' }
               subtitle="Member"
               bottomDivider
               chevron
             />
           </TouchableOpacity>
-          {!profile_loading && (
+          {profile_loading === false &&  (
             <>
               <View style={styles.mt_10} />
               <ListItem

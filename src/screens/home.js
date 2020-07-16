@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 // Imports: Redux Actions
 import { connect } from 'react-redux';
 import { GET_PROFILE } from '../redux/actions/profile.actions';
+import { pin } from '../redux/actions/auth.actions';
 
 // Imports: Component
 import Loader from '../component/loader';
@@ -40,7 +41,7 @@ export class home extends Component {
               />
             }
             centerComponent={{
-              text: profile_loading ? '-' : profile_data.fullname,
+              text: profile_data !== null ? profile_data.fullname : '-',
               style: { color: '#3f3d56' },
             }}
             rightComponent={
@@ -50,18 +51,21 @@ export class home extends Component {
             bottomDivider
           />
           {/* Head 1 */}
-          {!profile_loading && (
+          {profile_loading === false && profile_data !== null &&  (
             <>
               <View style={styles.head1}>
                 <View style={styles.childHead1}>
-                  <Text h4 style={styles.fontWhite}>Rp {profile_data.amount}</Text>
+                  <Text h4 style={styles.fontWhite}>Rp {profile_data.amounts.toString()}</Text>
                   <Text style={styles.fontWhite}>Bonus Balance 0</Text>
                 </View>
                 <View style={styles.childHead2}>
-                  <View style={styles.headIcon}>
+                  <TouchableOpacity
+                    style={styles.headIcon}
+                    onPress={() => this.props.SET_PIN(true)}
+                  >
                     <Icon solid name="money-check-alt" size={25} color="#fff" />
                     <Text style={styles.fontWhite}>Top Up</Text>
-                  </View>
+                  </TouchableOpacity>
                   <View style={styles.headIcon}>
                     <Icon solid name="money-bill-wave-alt" size={25} color="#fff" />
                     <Text style={styles.fontWhite}>Transfer</Text>
@@ -123,11 +127,15 @@ export class home extends Component {
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}
                 >
-                  <Card
-                    containerStyle={styles.promo}
-                    imageStyle={styles.coverPromo}
-                    image={require('../assets/banner/1.jpg')}
-                  />
+                  <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate('detailPromo')}
+                  >
+                    <Card
+                      containerStyle={styles.promo}
+                      imageStyle={styles.coverPromo}
+                      image={require('../assets/banner/1.jpg')}
+                    />
+                  </TouchableOpacity>
                   <Card
                     containerStyle={styles.promo}
                     imageStyle={styles.coverPromo}
@@ -234,6 +242,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     // GET_PROFILE
     GET_PROFILE: (trueFalse) => dispatch(GET_PROFILE(trueFalse)),
+    SET_PIN: (request) => dispatch(pin(request)),
   };
 };
 

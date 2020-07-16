@@ -1,6 +1,12 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+} from 'react-native';
 import { Header, ListItem } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -23,16 +29,20 @@ export default class history extends Component {
           />
 
           <View style={styles.mt_10} />
-          <ListItem
-            key={1}
-            leftIcon={
-              <Icon solid name="money-bill" size={30} />
-            }
-            title="Top Up Pulsa"
-            subtitle="Today, 13.43 PM"
-            bottomDivider
-            chevron
-          />
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('detailHistory')}
+          >
+            <ListItem
+              key={1}
+              leftIcon={
+                <Icon solid name="money-bill" size={30} />
+              }
+              title="Top Up Pulsa"
+              subtitle="Today, 13.43 PM"
+              bottomDivider
+              chevron
+            />
+          </TouchableOpacity>
         </ScrollView>
       </SafeAreaView>
     );

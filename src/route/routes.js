@@ -15,17 +15,30 @@ import Forget from '../screens/auth/forget';
 import User from './member-routes';
 import Avatar from '../screens/profile/avatar.profile';
 import EditProfile from '../screens/profile/edit.profile';
+import DetailInbox from '../screens/detail/inbox.detail';
+import DetailHistory from '../screens/detail/history.detail';
+import DetailPromo from '../screens/detail/promo.detail';
+
+// Payment
+import TopUp from '../screens/payment/topup';
 
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
 export class Routes extends Component {
   render() {
-    const { loggedIn, apikey, pinRequired } = this.props.auth;
+    const {
+      loggedIn,
+      apikey,
+      pinRequired,
+      pinStatus,
+      payRequired,
+      payStatus,
+    } = this.props.auth;
     return (
       <Stack.Navigator>
         {/* SHOW PIN SCREENS */}
-        {pinRequired && (
+        {pinRequired && pinStatus === false && (
           <>
             <Stack.Screen
               options={{ headerShown: false }}
@@ -56,14 +69,26 @@ export class Routes extends Component {
           </>
         )}
 
+        {/* Payments */}
+        {payRequired && payStatus === false && pinRequired === false &&  (
+          <>
+            <Stack.Screen
+              options={{ headerShown: false }}
+              component={TopUp}
+              name={'topUp'}
+            />
+          </>
+        )}
+
         {/* ON LOGIN SCREENS */}
-        {loggedIn && apikey && (
+        {loggedIn && apikey && pinRequired === false && (
           <>
             <Stack.Screen
               options={{ headerShown: false }}
               component={User}
               name={'home'}
             />
+            {/* Edit page */}
             <Stack.Screen
               options={{ title: 'Edit Picture' }}
               component={Avatar}
@@ -73,6 +98,22 @@ export class Routes extends Component {
               options={{ title: 'Edit Profile' }}
               component={EditProfile}
               name={'editProfile'}
+            />
+            {/* Detail page */}
+            <Stack.Screen
+              options={{ title: 'Detail Inbox' }}
+              component={DetailInbox}
+              name={'detailInbox'}
+            />
+            <Stack.Screen
+              options={{ title: 'Detail History' }}
+              component={DetailHistory}
+              name={'detailHistory'}
+            />
+            <Stack.Screen
+              options={{ title: 'Detail Promo' }}
+              component={DetailPromo}
+              name={'detailPromo'}
             />
           </>
         )}

@@ -12,9 +12,13 @@ import {
 import { Button, Image, Text } from 'react-native-elements';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 
+// Imports: Redux Actions
+import { connect } from 'react-redux';
+import { pin, pay } from '../../redux/actions/auth.actions';
+
 import svg from '../../assets/vector/pin.png';
 
-export default class pin extends Component {
+export class Pins extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,7 +33,8 @@ export default class pin extends Component {
     if (code) {
       if (code.length === 4) {
         if (email) {
-          this.setState({ isLoading: true });
+          this.props.SET_PIN(false);
+          this.props.SET_PAY(true);
           ToastAndroid.show('Allowed', ToastAndroid.SHORT);
         } else {
           ToastAndroid.show('Something wrong, Try again', ToastAndroid.SHORT);
@@ -115,3 +120,25 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
 });
+
+// Map State To Props (Redux Store Passes State To Component)
+const mapStateToProps = (state) => {
+  // Redux Store --> Component
+  return {
+    auth: state.authReducer,
+    profile: state.profileReducer,
+  };
+};
+
+// Map Dispatch To Props (Dispatch Actions To Reducers. Reducers Then Modify The Data And Assign It To Your Props)
+const mapDispatchToProps = (dispatch) => {
+  // Action
+  return {
+    // GET_PROFILE
+    SET_PIN: (request) => dispatch(pin(request)),
+    SET_PAY: (request) => dispatch(pay(request)),
+  };
+};
+
+// Exports
+export default connect(mapStateToProps, mapDispatchToProps)(Pins);

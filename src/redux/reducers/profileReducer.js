@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 // Initial State
 const initialState = {
-  profile_data: [],
+  profile_data: null,
   profile_loading: false,
   profile_err: false,
   errMsg: null,
@@ -19,6 +19,13 @@ const authReducer = (state = initialState, action) => {
           profile_err: false,
           errMsg: '',
         },
+      };
+    }
+    case 'GET_PROFILE_REJECTED': {
+      return {
+        ...state,
+        profile_loading: false,
+        profile_err: true,
       };
     }
     case 'GET_PROFILE_FULFILLED': {

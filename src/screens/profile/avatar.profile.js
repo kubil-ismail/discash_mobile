@@ -95,7 +95,7 @@ export class profile extends Component {
           <View style={styles.center}>
             {this.renderFileUri()}
             <Button
-              title="Select cover book"
+              title="Select profile image"
               onPress={() => this.chooseImage()}
               buttonStyle={styles.bgRed}
             />
