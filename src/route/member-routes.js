@@ -7,6 +7,7 @@ import { StyleSheet } from 'react-native';
 // Import Screens
 import Home from '../screens/home';
 import History from '../screens/history';
+import Payment from '../screens/payment';
 import Inbox from '../screens/inbox';
 import Profile from '../screens/profile';
 
@@ -48,8 +49,8 @@ export default class Member extends Component {
               <Icon name="qrcode" color={color} size={size} />
             ),
           }}
-          component={Home}
-          name="Bayar"
+          component={Payment}
+          name="payment"
         />
         <BottomTab.Screen
           options={{
@@ -59,7 +60,7 @@ export default class Member extends Component {
             ),
           }}
           component={Inbox}
-          name="Inbox"
+          name="inbox"
         />
         <BottomTab.Screen
           options={{

@@ -17,7 +17,7 @@ export class home extends Component {
   }
 
   render() {
-    const { profile_data } = this.props.profile;
+    const { profile_data, profile_loading } = this.props.profile;
     return (
       <SafeAreaView>
         <ScrollView>
@@ -30,7 +30,7 @@ export class home extends Component {
               />
             }
             centerComponent={{
-              text: profile_data.fullname,
+              text: '-',
               style: { color: '#3f3d56' },
             }}
             rightComponent={
@@ -42,7 +42,7 @@ export class home extends Component {
           {/* Head 1 */}
           <View style={styles.head1}>
             <View style={styles.childHead1}>
-              <Text h4 style={styles.fontWhite}>Rp {profile_data.amounts}</Text>
+              <Text h4 style={styles.fontWhite}>Rp 0</Text>
               <Text style={styles.fontWhite}>Bonus Balance 0</Text>
             </View>
             <View style={styles.childHead2}>
