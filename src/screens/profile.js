@@ -23,8 +23,8 @@ export class profile extends Component {
           <ListItem
             key={1}
             leftAvatar={{ source: avatar }}
-            title={profile_data.fullname}
-            subtitle={profile_data.phone}
+            title={'-'}
+            subtitle={'-'}
             bottomDivider
             chevron
           />
@@ -46,7 +46,7 @@ export class profile extends Component {
           <ListItem
             key={4}
             title="Email"
-            subtitle={profile.email}
+            subtitle={''}
             bottomDivider
             chevron
           />
