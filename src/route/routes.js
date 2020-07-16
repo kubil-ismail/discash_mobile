@@ -1,6 +1,9 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
 
+// redux
+import { connect } from 'react-redux';
+
 // Auth Screens
 import Login from '../screens/auth/login';
 import Register from '../screens/auth/register';
@@ -13,7 +16,7 @@ import User from './member-routes';
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
-export default class authRoutes extends Component {
+class authRoutes extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,11 +25,11 @@ export default class authRoutes extends Component {
   }
 
   render() {
-    const { isLogin } = this.state;
+    const { loggedIn } = this.props.auth;
     return (
       <Stack.Navigator>
         {/* NOT LOGIN SCREENS */}
-        {isLogin === false && (
+        {!loggedIn ? (
           <>
             <Stack.Screen
               options={{ headerShown: false }}
@@ -49,10 +52,10 @@ export default class authRoutes extends Component {
               name={'forget'}
             />
           </>
-        )}
-
+        )
+        :
         {/* ON LOGIN SCREENS */}
-        {isLogin && (
+        (
           <>
             <Stack.Screen
               options={{ headerShown: false }}
@@ -60,8 +63,16 @@ export default class authRoutes extends Component {
               name={'home'}
             />
           </>
-        )}
+        )
+      }
       </Stack.Navigator>
     );
   }
 }
+
+const mapStateToProps = state => ({
+    auth: state.authReducer,
+})
+
+// Exports
+export default connect(mapStateToProps)(authRoutes);

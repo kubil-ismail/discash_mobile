@@ -11,20 +11,27 @@ import {
 } from 'react-native';
 import { Button, Image, Input, Text } from 'react-native-elements';
 
+// Imports: Redux Actions
+import { connect } from 'react-redux';
+import { login } from '../../redux/actions/auth.action';
+
 import svg from '../../assets/vector/unlock.png';
 
-export default class login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: null,
-      password: null,
-      isLoading: false,
+      password: null
     };
   }
 
+  onLogin = () => {
+    this.props.login(this.state)
+  }
+
   render() {
-    const { isLoading } = this.state;
+    const { isLoading } = this.props.auth;
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -107,3 +114,11 @@ const styles = StyleSheet.create({
     color: '#3f3d56',
   },
 });
+
+const mapStateToProps = state => ({
+    auth: state.authReducer,
+})
+const mapDispatchToProps = { login }
+
+// Exports
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
