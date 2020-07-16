@@ -6,7 +6,6 @@ import { ListItem } from 'react-native-elements';
 // Imports: Redux Actions
 import { connect } from 'react-redux';
 import { GET_PROFILE } from '../redux/actions/profile.actions';
-import { LOGOUT } from '../redux/actions/auth.actions';
 
 import avatar from '../assets/profile.png';
 
