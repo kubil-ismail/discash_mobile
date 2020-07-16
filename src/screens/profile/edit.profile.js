@@ -4,7 +4,6 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  ToastAndroid,
   View,
 } from 'react-native';
 import { Avatar, Button, Input } from 'react-native-elements';
