@@ -12,9 +12,13 @@ import {
 } from 'react-native';
 import { Button, Image, Input, Text } from 'react-native-elements';
 
+// Imports: Redux Actions
+import { connect } from 'react-redux';
+import { login } from '../../redux/actions/auth.actions';
+
 import svg from '../../assets/vector/unlock.png';
 
-export default class login extends Component {
+export class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,15 +31,14 @@ export default class login extends Component {
   onLogin = () => {
     const { email, password } = this.state;
     if (email && password) {
-      this.setState({ isLoading: true });
-      ToastAndroid.show('Allowed', ToastAndroid.SHORT);
+      this.props.login(this.state);
     } else {
       ToastAndroid.show('Email & Password must filled', ToastAndroid.SHORT);
     }
   }
 
   render() {
-    const { isLoading } = this.state;
+    const { isLoading, errMsg } = this.props.auth;
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -50,6 +53,7 @@ export default class login extends Component {
             placeholder="Email address"
             keyboardType={'email-address'}
             onChangeText={(e) => this.setState({ email: e })}
+            errorMessage={errMsg}
             leftIcon={
               <Icon
                 name="envelope"
@@ -118,3 +122,13 @@ const styles = StyleSheet.create({
     color: '#3f3d56',
   },
 });
+
+
+const mapStateToProps = state => ({
+  auth: state.authReducer,
+});
+
+const mapDispatchToProps = { login };
+
+// Exports
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -8,6 +8,9 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { connect } from 'react-redux';
 import { GET_PROFILE } from '../redux/actions/profile.actions';
 
+// Imports: Component
+import Loader from '../component/loader';
+
 import avatar from '../assets/profile.png';
 
 export class home extends Component {
@@ -17,9 +20,10 @@ export class home extends Component {
   }
 
   render() {
-    const { profile_data } = this.props.profile;
+    const { profile_data, profile_loading } = this.props.profile;
     return (
       <SafeAreaView>
+        <Loader isLoading={profile_loading} />
         <ScrollView>
           <Header
             placement="left"
@@ -30,7 +34,7 @@ export class home extends Component {
               />
             }
             centerComponent={{
-              text: profile_data.fullname,
+              text: profile_loading ? '-' : profile_data.fullname,
               style: { color: '#3f3d56' },
             }}
             rightComponent={
@@ -40,99 +44,103 @@ export class home extends Component {
             bottomDivider
           />
           {/* Head 1 */}
-          <View style={styles.head1}>
-            <View style={styles.childHead1}>
-              <Text h4 style={styles.fontWhite}>Rp {profile_data.amounts}</Text>
-              <Text style={styles.fontWhite}>Bonus Balance 0</Text>
-            </View>
-            <View style={styles.childHead2}>
-              <View style={styles.headIcon}>
-                <Icon solid name="money-check-alt" size={25} color="#fff" />
-                <Text style={styles.fontWhite}>Top Up</Text>
+          {!profile_loading && (
+            <>
+              <View style={styles.head1}>
+                <View style={styles.childHead1}>
+                  <Text h4 style={styles.fontWhite}>Rp {profile_data.amount}</Text>
+                  <Text style={styles.fontWhite}>Bonus Balance 0</Text>
+                </View>
+                <View style={styles.childHead2}>
+                  <View style={styles.headIcon}>
+                    <Icon solid name="money-check-alt" size={25} color="#fff" />
+                    <Text style={styles.fontWhite}>Top Up</Text>
+                  </View>
+                  <View style={styles.headIcon}>
+                    <Icon solid name="money-bill-wave-alt" size={25} color="#fff" />
+                    <Text style={styles.fontWhite}>Transfer</Text>
+                  </View>
+                  <View style={styles.headIcon}>
+                    <Icon solid name="ticket-alt" size={25} color="#fff" />
+                    <Text style={styles.fontWhite}>Ticket</Text>
+                  </View>
+                  <View style={styles.headIcon}>
+                    <Icon solid name="wallet" size={25} color="#fff" />
+                    <Text style={styles.fontWhite}>Wallet</Text>
+                  </View>
+                </View>
               </View>
-              <View style={styles.headIcon}>
-                <Icon solid name="money-bill-wave-alt" size={25} color="#fff" />
-                <Text style={styles.fontWhite}>Transfer</Text>
+              {/* Head 2 */}
+              <View style={styles.head2}>
+                <Text h4>Feature</Text>
+                <View style={styles.childHead2}>
+                  <View style={styles.headIcon}>
+                    <Icon solid name="mobile-alt" size={25} color="#f70000" />
+                    <Text style={styles.fontDark}>Pulsa/Data</Text>
+                  </View>
+                  <View style={styles.headIcon}>
+                    <Icon solid name="bolt" size={25} color="#f70000" />
+                    <Text style={styles.fontDark}>Electricity</Text>
+                  </View>
+                  <View style={styles.headIcon}>
+                    <Icon solid name="gamepad" size={25} color="#f70000" />
+                    <Text style={styles.fontDark}>Games</Text>
+                  </View>
+                  <View style={styles.headIcon}>
+                    <Icon solid name="mobile" size={25} color="#f70000" />
+                    <Text style={styles.fontDark}>Pascabayar</Text>
+                  </View>
+                </View>
+                <View style={styles.childHead2}>
+                  <View style={styles.headIcon}>
+                    <Icon solid name="money-bill-alt" size={25} color="#f70000" />
+                    <Text style={styles.fontDark}>E-Money</Text>
+                  </View>
+                  <View style={styles.headIcon}>
+                    <Icon solid name="bus" size={25} color="#f70000" />
+                    <Text style={styles.fontDark}>Transport</Text>
+                  </View>
+                  <View style={styles.headIcon}>
+                    <Icon solid name="people-carry" size={25} color="#f70000" />
+                    <Text style={styles.fontDark}>Berbagi</Text>
+                  </View>
+                  <View style={styles.headIcon}>
+                    <Icon solid name="buromobelexperte" size={25} color="#f70000" />
+                    <Text style={styles.fontDark}>More</Text>
+                  </View>
+                </View>
               </View>
-              <View style={styles.headIcon}>
-                <Icon solid name="ticket-alt" size={25} color="#fff" />
-                <Text style={styles.fontWhite}>Ticket</Text>
+              {/* Head 3 */}
+              <View style={styles.head3}>
+                <Text h4 style={styles.pl_20}>Promo</Text>
+                <ScrollView
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                >
+                  <Card
+                    containerStyle={styles.promo}
+                    imageStyle={styles.coverPromo}
+                    image={require('../assets/banner/1.jpg')}
+                  />
+                  <Card
+                    containerStyle={styles.promo}
+                    imageStyle={styles.coverPromo}
+                    image={require('../assets/banner/2.jpg')}
+                  />
+                  <Card
+                    containerStyle={styles.promo}
+                    imageStyle={styles.coverPromo}
+                    image={require('../assets/banner/3.jpg')}
+                  />
+                  <Card
+                    containerStyle={styles.promo}
+                    imageStyle={styles.coverPromo}
+                    image={require('../assets/banner/4.jpg')}
+                  />
+                </ScrollView>
               </View>
-              <View style={styles.headIcon}>
-                <Icon solid name="wallet" size={25} color="#fff" />
-                <Text style={styles.fontWhite}>Wallet</Text>
-              </View>
-            </View>
-          </View>
-          {/* Head 2 */}
-          <View style={styles.head2}>
-            <Text h4>Feature</Text>
-            <View style={styles.childHead2}>
-              <View style={styles.headIcon}>
-                <Icon solid name="mobile-alt" size={25} color="#f70000" />
-                <Text style={styles.fontDark}>Pulsa/Data</Text>
-              </View>
-              <View style={styles.headIcon}>
-                <Icon solid name="bolt" size={25} color="#f70000" />
-                <Text style={styles.fontDark}>Electricity</Text>
-              </View>
-              <View style={styles.headIcon}>
-                <Icon solid name="gamepad" size={25} color="#f70000" />
-                <Text style={styles.fontDark}>Games</Text>
-              </View>
-              <View style={styles.headIcon}>
-                <Icon solid name="mobile" size={25} color="#f70000" />
-                <Text style={styles.fontDark}>Pascabayar</Text>
-              </View>
-            </View>
-            <View style={styles.childHead2}>
-              <View style={styles.headIcon}>
-                <Icon solid name="money-bill-alt" size={25} color="#f70000" />
-                <Text style={styles.fontDark}>E-Money</Text>
-              </View>
-              <View style={styles.headIcon}>
-                <Icon solid name="bus" size={25} color="#f70000" />
-                <Text style={styles.fontDark}>Transport</Text>
-              </View>
-              <View style={styles.headIcon}>
-                <Icon solid name="people-carry" size={25} color="#f70000" />
-                <Text style={styles.fontDark}>Berbagi</Text>
-              </View>
-              <View style={styles.headIcon}>
-                <Icon solid name="buromobelexperte" size={25} color="#f70000" />
-                <Text style={styles.fontDark}>More</Text>
-              </View>
-            </View>
-          </View>
-          {/* Head 3 */}
-          <View style={styles.head3}>
-            <Text h4 style={styles.pl_20}>Promo</Text>
-            <ScrollView
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            >
-              <Card
-                containerStyle={styles.promo}
-                imageStyle={styles.coverPromo}
-                image={require('../assets/banner/1.jpg')}
-              />
-              <Card
-                containerStyle={styles.promo}
-                imageStyle={styles.coverPromo}
-                image={require('../assets/banner/2.jpg')}
-              />
-              <Card
-                containerStyle={styles.promo}
-                imageStyle={styles.coverPromo}
-                image={require('../assets/banner/3.jpg')}
-              />
-              <Card
-                containerStyle={styles.promo}
-                imageStyle={styles.coverPromo}
-                image={require('../assets/banner/4.jpg')}
-              />
-            </ScrollView>
-          </View>
+            </>
+          )}
         </ScrollView>
       </SafeAreaView>
     );
