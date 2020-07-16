@@ -1,6 +1,12 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+} from 'react-native';
 import { Avatar, Header, Text, Card } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 

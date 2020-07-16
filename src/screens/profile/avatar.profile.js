@@ -7,7 +7,8 @@ import {
   ToastAndroid,
   View,
 } from 'react-native';
-import { Avatar, Button, Input } from 'react-native-elements';
+import { Avatar, Button } from 'react-native-elements';
+import ImagePicker from 'react-native-image-picker';
 
 // Imports: Redux Actions
 import { connect } from 'react-redux';
@@ -22,12 +23,13 @@ import avatar from '../../assets/profile.png';
 export class profile extends Component {
   constructor(props) {
     super(props);
-    const { profile_data } = this.props.profile;
     this.state = {
-      fullname: profile_data.fullname,
-      phone: profile_data.phone,
-      gender: profile_data.gender,
-      birthdate: profile_data.birthdate,
+      filepath: {
+        data: '',
+        uri: '',
+      },
+      fileData: '',
+      fileUri: '',
     };
   }
 
@@ -36,8 +38,52 @@ export class profile extends Component {
     this.props.GET_PROFILE({ id: userId });
   }
 
-  updateProfile = () => {
+  chooseImage = () => {
+    let options = {
+      title: 'Select Image',
+      customButtons: [
+        { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
+      ],
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.showImagePicker(options, (response) => {
+      if (response.didCancel) {
+        ToastAndroid.show('Image must filled', ToastAndroid.SHORT);
+      } else if (response.error) {
+        ToastAndroid.show('Something wrong, try again', ToastAndroid.SHORT);
+      } else if (response.customButton) {
+        ToastAndroid.show('Something wrong, try again', ToastAndroid.SHORT);
+      } else if (response.fileSize >= 2077116) {
+        ToastAndroid.show('Max Size 2 Mb', ToastAndroid.SHORT);
+      } else {
+        this.setState({
+          filePath: response,
+          fileData: response.data,
+          fileUri: response.uri,
+        });
+      }
+    });
+  }
 
+  renderFileUri = () => {
+    if (this.state.fileUri) {
+      return <Avatar
+        rounded
+        size={200}
+        containerStyle={styles.mb_10}
+        source={{ uri: this.state.fileUri }}
+      />;
+    } else {
+      return <Avatar
+        rounded
+        size={200}
+        containerStyle={styles.mb_10}
+        source={avatar}
+      />;
+    }
   }
 
   render() {
@@ -47,36 +93,17 @@ export class profile extends Component {
         <Loader isLoading={profile_loading} />
         <ScrollView>
           <View style={styles.center}>
-            <Avatar
-              rounded
-              size={200}
-              containerStyle={styles.mb_10}
-              source={avatar}
-            />
-            <Input
-              placeholder="Fullname"
-              defaultValue={this.state.fullname}
-              onChangeText={(e) => this.setState({ fullname: e })}
-            />
-            <Input
-              placeholder="Phone Number"
-              defaultValue={this.state.phone}
-              onChangeText={(e) => this.setState({ phone: e })}
-            />
-            <Input
-              placeholder="Gender"
-              defaultValue={this.state.gender}
-              onChangeText={(e) => this.setState({ gender: e })}
-            />
-            <Input
-              placeholder="Birthdate"
-              defaultValue={this.state.birthdate}
-              onChangeText={(e) => this.setState({ birthdate: e })}
+            {this.renderFileUri()}
+            <Button
+              title="Select cover book"
+              onPress={() => this.chooseImage()}
+              buttonStyle={styles.bgRed}
             />
             <Button
-              title="Update Profile"
-              onPress={() => this.updateProfile()}
-              buttonStyle={styles.bgRed}
+              title="Update profile"
+              type="clear"
+              titleStyle={styles.outlineBtn}
+              onPress={() => this.props.navigation.navigate('editProfile')}
             />
           </View>
         </ScrollView>
@@ -92,7 +119,7 @@ const styles = StyleSheet.create({
   center: {
     margin: 10,
     padding: 10,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   bgRed: {
     backgroundColor: '#f70000',

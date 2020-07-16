@@ -13,6 +13,8 @@ import Forget from '../screens/auth/forget';
 
 // Home Screens
 import User from './member-routes';
+import Avatar from '../screens/profile/avatar.profile';
+import EditProfile from '../screens/profile/edit.profile';
 
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
@@ -61,6 +63,16 @@ export class Routes extends Component {
               options={{ headerShown: false }}
               component={User}
               name={'home'}
+            />
+            <Stack.Screen
+              options={{ title: 'Edit Picture' }}
+              component={Avatar}
+              name={'avatar'}
+            />
+            <Stack.Screen
+              options={{ title: 'Edit Profile' }}
+              component={EditProfile}
+              name={'editProfile'}
             />
           </>
         )}

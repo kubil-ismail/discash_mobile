@@ -16,6 +16,8 @@ target 'discash_mobile' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
   target 'discash_mobileTests' do
     inherit! :complete
     # Pods for testing
