@@ -39,7 +39,7 @@ export class Routes extends Component {
         )}
 
         {/* NOT LOGIN SCREENS */}
-        {!loggedIn && !apikey && (
+        {loggedIn === false && apikey === null && (
           <>
             <Stack.Screen
               options={{ headerShown: false }}

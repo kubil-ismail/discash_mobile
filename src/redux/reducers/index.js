@@ -3,8 +3,8 @@
 import { combineReducers } from 'redux';
 
 // Imports: Reducers
-import authReducer from './auth.reducer';
-import profileReducer from './profile.reducer';
+import authReducer from './authReducer';
+import profileReducer from './profileReducer';
 
 
 // Redux: Root Reducer
