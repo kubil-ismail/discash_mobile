@@ -1,22 +1,40 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
-import { Header, Text, Card } from 'react-native-elements';
+import { Avatar, Header, Text, Card } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-export default class home extends Component {
+// Imports: Redux Actions
+import { connect } from 'react-redux';
+import { GET_PROFILE } from '../redux/actions/profile.actions';
+
+import avatar from '../assets/profile.png';
+
+export class home extends Component {
+  componentDidMount = () => {
+    const { userId } = this.props.auth;
+    this.props.GET_PROFILE({ id: userId });
+  }
+
   render() {
+    const { profile_data } = this.props.profile;
     return (
       <SafeAreaView>
         <ScrollView>
           <Header
             placement="left"
             leftComponent={
-              <Icon solid name="user" size={20} />
+              <Avatar
+                rounded
+                source={avatar}
+              />
             }
-            centerComponent={{ text: 'Profile name', style: { color: '#3f3d56' } }}
+            centerComponent={{
+              text: profile_data.fullname,
+              style: { color: '#3f3d56' },
+            }}
             rightComponent={
-              <Icon solid name="heart" size={20} />
+              <Icon solid name="heart" size={20} color="#f70000" />
             }
             backgroundColor="#fff"
             bottomDivider
@@ -24,7 +42,7 @@ export default class home extends Component {
           {/* Head 1 */}
           <View style={styles.head1}>
             <View style={styles.childHead1}>
-              <Text h4 style={styles.fontWhite}>Rp 0</Text>
+              <Text h4 style={styles.fontWhite}>Rp {profile_data.amounts}</Text>
               <Text style={styles.fontWhite}>Bonus Balance 0</Text>
             </View>
             <View style={styles.childHead2}>
@@ -186,3 +204,24 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 });
+
+// Map State To Props (Redux Store Passes State To Component)
+const mapStateToProps = (state) => {
+  // Redux Store --> Component
+  return {
+    auth: state.authReducer,
+    profile: state.profileReducer,
+  };
+};
+
+// Map Dispatch To Props (Dispatch Actions To Reducers. Reducers Then Modify The Data And Assign It To Your Props)
+const mapDispatchToProps = (dispatch) => {
+  // Action
+  return {
+    // GET_PROFILE
+    GET_PROFILE: (trueFalse) => dispatch(GET_PROFILE(trueFalse)),
+  };
+};
+
+// Exports
+export default connect(mapStateToProps, mapDispatchToProps)(home);
