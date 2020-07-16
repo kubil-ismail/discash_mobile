@@ -11,9 +11,13 @@ import {
 } from 'react-native';
 import { Button, Image, Input, Text } from 'react-native-elements';
 
+// Imports: Redux Actions
+import { connect } from 'react-redux';
+import { register } from '../../redux/actions/auth.action';
+
 import svg from '../../assets/vector/access_account.png';
 
-export default class register extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,11 +26,16 @@ export default class register extends Component {
       password: null,
       password2: null,
       isLoading: false,
+      pin: 1234
     };
   }
-
+  onRegis = () => {
+    const { email, password, pin } = this.state
+    const body = { email, password, pin }
+    this.props.register(data)
+  }
   render() {
-    const { isLoading } = this.state;
+    const { isLoading } = this.props.auth;
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -89,7 +98,7 @@ export default class register extends Component {
             title="Register"
             loading={isLoading}
             buttonStyle={styles.bgRed}
-            onPress={() => this.onLogin()}
+            onPress={() => this.onRegis()}
           />
           {/* eslint-disable-next-line react-native/no-inline-styles */}
           <View style={{ marginTop: 20 }} />
@@ -133,3 +142,11 @@ const styles = StyleSheet.create({
     color: '#3f3d56',
   },
 });
+
+const mapStateToProps = state => ({
+    auth: state.authReducer,
+})
+const mapDispatchToProps = { register }
+
+// Exports
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

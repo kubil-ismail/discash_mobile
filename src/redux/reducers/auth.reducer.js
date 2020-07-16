@@ -39,6 +39,30 @@ const authReducer = (state = initialState, action) => {
         loggedIn: true
       }
     }
+    // REGISTER reducer
+    case 'REGISTER_PENDING': {
+      return {
+        ...state,
+        isLoading: true,
+        isError: false
+      }
+    }
+    case 'REGISTER_REJECTED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        errMsg: action.payload.message
+      }
+    }
+    case 'REGISTER_FULFILLED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        errMsg: action.payload.message
+      }
+    }
     // Default
     default: {
       return state;

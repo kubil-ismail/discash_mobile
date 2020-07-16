@@ -7,3 +7,10 @@ export const login = (body)=>{
     payload: post({url, body})
   }
 }
+export const register = (body)=>{
+    const url = 'auth/register'
+  return {
+    type: 'REGISTER',
+    payload: post({url, body})
+  }
+}
