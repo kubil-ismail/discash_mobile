@@ -8,6 +8,7 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  ToastAndroid,
 } from 'react-native';
 import { Button, Image, Input, Text } from 'react-native-elements';
 
@@ -21,6 +22,16 @@ export default class login extends Component {
       password: null,
       isLoading: false,
     };
+  }
+
+  onLogin = () => {
+    const { email, password } = this.state;
+    if (email && password) {
+      this.setState({ isLoading: true });
+      ToastAndroid.show('Allowed', ToastAndroid.SHORT);
+    } else {
+      ToastAndroid.show('Email & Password must filled', ToastAndroid.SHORT);
+    }
   }
 
   render() {

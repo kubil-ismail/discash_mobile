@@ -7,6 +7,7 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  ToastAndroid,
 } from 'react-native';
 import { Button, Image, Text } from 'react-native-elements';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
@@ -17,13 +18,29 @@ export default class pin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: null,
-      password: null,
+      email: 'test@gmail.com',
       code: null,
       isLoading: false,
     };
   }
 
+  onCheck = () => {
+    const { code, email } = this.state;
+    if (code) {
+      if (code.length === 4) {
+        if (email) {
+          this.setState({ isLoading: true });
+          ToastAndroid.show('Allowed', ToastAndroid.SHORT);
+        } else {
+          ToastAndroid.show('Something wrong, Try again', ToastAndroid.SHORT);
+        }
+      } else {
+        ToastAndroid.show('Pin must be greater than 4 characters', ToastAndroid.SHORT);
+      }
+    } else {
+      ToastAndroid.show('Pin must filled', ToastAndroid.SHORT);
+    }
+  }
   render() {
     const { code, isLoading } = this.state;
     return (
@@ -49,7 +66,7 @@ export default class pin extends Component {
             title="Check"
             loading={isLoading}
             buttonStyle={styles.bgRed}
-            onPress={() => this.onLogin()}
+            onPress={() => this.onCheck()}
           />
           {/* eslint-disable-next-line react-native/no-inline-styles */}
           <View style={{ marginTop: 20 }} />
