@@ -57,11 +57,41 @@ const authReducer = (state = initialState, action) => {
         ...state,
         profile_loading: false,
         profile_err: true,
-        errMsg: message,
+        errMsg: message
       };
     }
     case 'EDIT_PROFILE_FULFILLED': {
       const { result } = action.payload.data;
+      return {
+        ...state,
+        ...{
+          profile_loading: false,
+          profile_err: false,
+          errMsg: '',
+        },
+      };
+    }
+    // DELETE PROFILE
+    case 'DELETE_PROFILE_PENDING': {
+      return {
+        ...state,
+        ...{
+          profile_loading: true,
+          profile_err: false,
+          errMsg: '',
+        },
+      };
+    }
+    case 'DELETE_PROFILE_REJECTED': {
+      const { message } = action.payload.data;
+      return {
+        ...state,
+        profile_loading: false,
+        profile_err: true,
+        errMsg: message
+      };
+    }
+    case 'DELETE_PROFILE_FULFILLED': {
       return {
         ...state,
         ...{

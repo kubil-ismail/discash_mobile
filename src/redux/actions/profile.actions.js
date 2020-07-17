@@ -7,6 +7,7 @@ export const GET_PROFILE = (request) => ({
     url: `user/${request.id}`,
   }),
 });
+// EDIT PROFILE AND AVATAR
 export const EDIT_PROFILE = (request) => ({
   type: 'EDIT_PROFILE',
   payload: patch({
@@ -19,5 +20,12 @@ export const EDIT_AVATAR = (request) => ({
   payload: patch({
     url: `user/avatar/${request.id}`,
     body: `request.body`
+  }),
+});
+// DELETE PROFILE
+export const DELETE_PROFILE = (request) => ({
+  type: 'DELETE_PROFILE',
+  payload: remove({
+    url: `user/${request.id}`,
   }),
 });
