@@ -40,6 +40,37 @@ const authReducer = (state = initialState, action) => {
         },
       };
     }
+    // EDIT PROFILE AND AVATAR
+    case 'EDIT_PROFILE_PENDING': {
+      return {
+        ...state,
+        ...{
+          profile_loading: true,
+          profile_err: false,
+          errMsg: '',
+        },
+      };
+    }
+    case 'EDIT_PROFILE_REJECTED': {
+      const { message } = action.payload.data;
+      return {
+        ...state,
+        profile_loading: false,
+        profile_err: true,
+        errMsg: message,
+      };
+    }
+    case 'EDIT_PROFILE_FULFILLED': {
+      const { result } = action.payload.data;
+      return {
+        ...state,
+        ...{
+          profile_loading: false,
+          profile_err: false,
+          errMsg: '',
+        },
+      };
+    }
     // Default
     default: {
       return state;

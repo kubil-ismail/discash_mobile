@@ -7,3 +7,17 @@ export const GET_PROFILE = (request) => ({
     url: `user/${request.id}`,
   }),
 });
+export const EDIT_PROFILE = (request) => ({
+  type: 'EDIT_PROFILE',
+  payload: get({
+    url: `user/${request.id}`,
+    body: `request.body`
+  }),
+});
+export const EDIT_AVATAR = (request) => ({
+  type: 'EDIT_PROFILE',
+  payload: get({
+    url: `user/avatar/${request.id}`,
+    body: `request.body`
+  }),
+});

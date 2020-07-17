@@ -12,7 +12,7 @@ import ImagePicker from 'react-native-image-picker';
 
 // Imports: Redux Actions
 import { connect } from 'react-redux';
-import { GET_PROFILE } from '../../redux/actions/profile.actions';
+import { GET_PROFILE, EDIT_AVATAR } from '../../redux/actions/profile.actions';
 import { logout } from '../../redux/actions/auth.actions';
 
 // Imports: Component
