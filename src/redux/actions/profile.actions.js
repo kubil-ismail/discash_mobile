@@ -22,6 +22,14 @@ export const EDIT_AVATAR = (request) => ({
     body: `request.body`
   }),
 });
+// EDIT PIN
+export const EDIT_PIN = (request) => ({
+  type: 'EDIT_PROFILE',
+  payload: patch({
+    url: `user/${request.id}`,
+    body: `request.body`
+  }),
+});
 // DELETE PROFILE
 export const DELETE_PROFILE = (request) => ({
   type: 'DELETE_PROFILE',

@@ -40,7 +40,7 @@ const authReducer = (state = initialState, action) => {
         },
       };
     }
-    // EDIT PROFILE AND AVATAR
+    // EDIT PROFILE, PIN, AND AVATAR
     case 'EDIT_PROFILE_PENDING': {
       return {
         ...state,
@@ -61,7 +61,6 @@ const authReducer = (state = initialState, action) => {
       };
     }
     case 'EDIT_PROFILE_FULFILLED': {
-      const { result } = action.payload.data;
       return {
         ...state,
         ...{
