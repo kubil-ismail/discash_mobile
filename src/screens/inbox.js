@@ -19,8 +19,9 @@ class inbox extends Component {
     const { userId } = this.props.auth;
     this.props.GET_INBOX({ id: userId });
   }
-  
+
   render() {
+    const { profile_inbox_data } = this.props.profile
     return (
       <SafeAreaView>
         <ScrollView>

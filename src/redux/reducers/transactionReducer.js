@@ -33,7 +33,7 @@ const transactionReducer = (state = initialState, action) => {
       return {
         ...state,
         ...{
-          transaction_data: result[0],
+          transaction_data: result,
           transaction_loading: false,
           transaction_err: false,
           errMsg: '',

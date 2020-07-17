@@ -19,8 +19,9 @@ export default class history extends Component {
     const { userId } = this.props.auth;
     this.props.GET_HISTORY({ id: userId });
   }
-  
+
   render() {
+    const { transaction_data } = this.props.history
     return (
       <SafeAreaView>
         <ScrollView>

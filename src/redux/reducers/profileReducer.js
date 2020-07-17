@@ -34,7 +34,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         ...{
-          profile_data: result[0],
+          profile_data: result,
           profile_loading: false,
           profile_err: false,
           errMsg: '',
