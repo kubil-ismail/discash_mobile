@@ -33,7 +33,7 @@ export class Topup extends Component {
             </Text>
             <View style={styles.qr}>
               <QRCode
-                value="http://awesome.link.qr"
+                value="http://192.168.1.4:8000/topup"
                 size={150}
               />
             </View>

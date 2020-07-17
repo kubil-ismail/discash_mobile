@@ -12,30 +12,42 @@ import {
 import { Button, Image, Text } from 'react-native-elements';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 
+// Imports: Component
+import Loader from '../../component/loader';
+
 // Imports: Redux Actions
 import { connect } from 'react-redux';
 import { pin, pay } from '../../redux/actions/auth.actions';
+import axios from 'axios';
+const url = 'http://192.168.1.4:8000/';
 
 import svg from '../../assets/vector/pin.png';
 
 export class Pins extends Component {
   constructor(props) {
     super(props);
+    const { profile_data } = this.props.profile;
     this.state = {
-      email: 'test@gmail.com',
       code: null,
+      userId: profile_data.user_id,
       isLoading: false,
     };
   }
 
   onCheck = () => {
-    const { code, email } = this.state;
+    const { code, userId } = this.state;
+    this.setState({ isLoading: true });
+
     if (code) {
       if (code.length === 4) {
-        if (email) {
-          this.props.SET_PIN(false);
-          this.props.SET_PAY(true);
-          ToastAndroid.show('Allowed', ToastAndroid.SHORT);
+        if (userId) {
+          const body = { pin: code, userId };
+          axios.post(`${url}auth/pin`, body)
+            .then(() => {
+              this.props.SET_PIN(false);
+              this.props.SET_PAY(true);
+            })
+            .catch((err) => ToastAndroid.show(err.response.data.message, ToastAndroid.SHORT));
         } else {
           ToastAndroid.show('Something wrong, Try again', ToastAndroid.SHORT);
         }
@@ -45,11 +57,13 @@ export class Pins extends Component {
     } else {
       ToastAndroid.show('Pin must filled', ToastAndroid.SHORT);
     }
+    this.setState({ isLoading: false });
   }
   render() {
     const { code, isLoading } = this.state;
     return (
       <SafeAreaView style={styles.container}>
+        <Loader isLoading={isLoading} />
         <ScrollView showsVerticalScrollIndicator={false}>
           <Image
             source={svg}
@@ -71,7 +85,9 @@ export class Pins extends Component {
             title="Check"
             loading={isLoading}
             buttonStyle={styles.bgRed}
-            onPress={() => this.onCheck()}
+            onPress={() => {
+              this.onCheck();
+            }}
           />
           {/* eslint-disable-next-line react-native/no-inline-styles */}
           <View style={{ marginTop: 20 }} />

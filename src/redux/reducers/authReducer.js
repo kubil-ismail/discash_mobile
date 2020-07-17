@@ -11,6 +11,7 @@ const initialState = {
   isLoading: false,
   isError: false,
   errMsg: null,
+  emailUser: null,
 };
 
 // Reducers (Modifies The State And Returns A New State)
@@ -44,6 +45,40 @@ const authReducer = (state = initialState, action) => {
           userId: result.userId,
           apikey: result.apiKey,
           loggedIn: status,
+        };
+      } else {
+        return {
+          ...state,
+          isLoading: false,
+          isError: true,
+          errMsg: message,
+        };
+      }
+    }
+    // Regist reducer
+    case 'REGISTER_PENDING': {
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    }
+    case 'REGISTER_REJECTED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        errMsg: action.payload.message,
+      };
+    }
+    case 'REGISTER_FULFILLED': {
+      const { status, message, result } = action.payload.data;
+      if (status) {
+        return {
+          ...state,
+          isLoading: false,
+          isError: false,
+          emailUser: result.email,
         };
       } else {
         return {
