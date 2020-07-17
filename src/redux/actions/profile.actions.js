@@ -9,14 +9,14 @@ export const GET_PROFILE = (request) => ({
 });
 export const EDIT_PROFILE = (request) => ({
   type: 'EDIT_PROFILE',
-  payload: get({
+  payload: patch({
     url: `user/${request.id}`,
     body: `request.body`
   }),
 });
 export const EDIT_AVATAR = (request) => ({
   type: 'EDIT_PROFILE',
-  payload: get({
+  payload: patch({
     url: `user/avatar/${request.id}`,
     body: `request.body`
   }),
