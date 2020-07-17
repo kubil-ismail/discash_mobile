@@ -2,6 +2,7 @@
 // Initial State
 const initialState = {
   profile_data: null,
+  profile_inbox_data: null,
   profile_loading: false,
   profile_err: false,
   errMsg: null,
@@ -34,6 +35,38 @@ const authReducer = (state = initialState, action) => {
         ...state,
         ...{
           profile_data: result[0],
+          profile_loading: false,
+          profile_err: false,
+          errMsg: '',
+        },
+      };
+    }
+    // GET INBOX
+    case 'GET_INBOX_PENDING': {
+      return {
+        ...state,
+        ...{
+          profile_loading: true,
+          profile_err: false,
+          errMsg: '',
+        },
+      };
+    }
+    case 'GET_INBOX_REJECTED': {
+      const { message } = action.payload.data;
+      return {
+        ...state,
+        profile_loading: false,
+        profile_err: true,
+        errMsg: message
+      };
+    }
+    case 'GET_INBOX_FULFILLED': {
+      const { result } = action.payload.data;
+      return {
+        ...state,
+        ...{
+          profile_inbox_data: result[0],
           profile_loading: false,
           profile_err: false,
           errMsg: '',

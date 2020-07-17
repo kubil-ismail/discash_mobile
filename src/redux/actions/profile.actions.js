@@ -7,6 +7,13 @@ export const GET_PROFILE = (request) => ({
     url: `user/${request.id}`,
   }),
 });
+// GET INBOX
+export const GET_INBOX = (request) => ({
+  type: 'GET_INBOX',
+  payload: get({
+    url: `user/inbox/${request.id}`,
+  }),
+});
 // EDIT PROFILE AND AVATAR
 export const EDIT_PROFILE = (request) => ({
   type: 'EDIT_PROFILE',
