@@ -5,7 +5,7 @@ In addition, you can earn Dishcard Rewards points for your digital wallet transa
 ## Discash Web
 For more information you can visit [Discash web](https://rinalia.github.io/FrontEnd_discash).
 ## Packages
-Used packages for create discash mobile with [react native](https://reactnative.dev/)
+Used packages to create discash mobile with [react native](https://reactnative.dev/)
 * [@react-native-community/async-storage](https://www.npmjs.com/package/@react-native-community/async-storage)
 * [@react-native-community/masked-view](https://www.npmjs.com/package/@react-native-community/masked-view)
 * [@react-navigation/bottom-tabs](https://reactnavigation.org/docs/bottom-tab-navigator/)
