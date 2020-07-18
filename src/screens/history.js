@@ -10,8 +10,18 @@ import {
 import { Header, ListItem } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
+// Imports: Redux Actions
+import { connect } from 'react-redux';
+import { GET_HISTORY } from '../redux/actions/profile.actions';
+
 export default class history extends Component {
+  componentDidMount = () => {
+    const { userId } = this.props.auth;
+    this.props.GET_HISTORY({ id: userId });
+  }
+
   render() {
+    const { transaction_data } = this.props.history
     return (
       <SafeAreaView>
         <ScrollView>
@@ -60,3 +70,24 @@ const styles = StyleSheet.create({
     backgroundColor: '#f7f7f7',
   },
 });
+
+// Map State To Props (Redux Store Passes State To Component)
+const mapStateToProps = (state) => {
+  // Redux Store --> Component
+  return {
+    auth: state.authReducer,
+    history: state.transactionReducer,
+  };
+};
+
+// Map Dispatch To Props (Dispatch Actions To Reducers. Reducers Then Modify The Data And Assign It To Your Props)
+const mapDispatchToProps = (dispatch) => {
+  // Action
+  return {
+    // GET_HISTORY
+    GET_HISTORY: (trueFalse) => dispatch(GET_HISTORY(trueFalse)),
+  };
+};
+
+// Exports
+export default connect(mapStateToProps, mapDispatchToProps)(history);
