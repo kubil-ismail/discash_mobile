@@ -10,7 +10,7 @@ import { Avatar, Button, Input } from 'react-native-elements';
 
 // Imports: Redux Actions
 import { connect } from 'react-redux';
-import { GET_PROFILE } from '../../redux/actions/profile.actions';
+import { GET_PROFILE, EDIT_PROFILE } from '../../redux/actions/profile.actions';
 import { logout } from '../../redux/actions/auth.actions';
 
 // Imports: Component
@@ -36,7 +36,8 @@ export class profile extends Component {
   }
 
   updateProfile = () => {
-
+    const { userId } = this.props.auth;
+    this.props.GET_PROFILE({ id: userId, body: this.state });
   }
 
   render() {
@@ -118,6 +119,8 @@ const mapDispatchToProps = (dispatch) => {
     // GET_PROFILE
     GET_PROFILE: (trueFalse) => dispatch(GET_PROFILE(trueFalse)),
     LOGOUT: () => dispatch(logout()),
+    // EDIT_PROFILE
+    EDIT_PROFILE: (trueFalse) => dispatch(EDIT_PROFILE(trueFalse)),
   };
 };
 
