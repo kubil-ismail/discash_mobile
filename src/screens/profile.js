@@ -29,22 +29,30 @@ export class profile extends Component {
     this.props.LOGOUT();
   }
 
+  editAvatar = () => {
+    this.props.navigation.navigate('avatar');
+  }
+
   render() {
     const { profile_data, profile_loading } = this.props.profile;
     return (
       <SafeAreaView>
         <Loader isLoading={profile_loading} />
+
         <ScrollView>
           <View style={styles.mt_10} />
-          <ListItem
-            key={1}
-            leftAvatar={{ source: avatar }}
-            title={profile_loading ? '-' : profile_data.fullname }
-            subtitle="Member"
-            bottomDivider
-            chevron
-          />
-          {!profile_loading && (
+
+          <TouchableOpacity onPress={() => this.editAvatar()}>
+            <ListItem
+              key={1}
+              leftAvatar={{ source: avatar }}
+              title={profile_loading === false ? profile_data.fullname : '-' }
+              subtitle="Member"
+              bottomDivider
+              chevron
+            />
+          </TouchableOpacity>
+          {profile_loading === false &&  (
             <>
               <View style={styles.mt_10} />
               <ListItem

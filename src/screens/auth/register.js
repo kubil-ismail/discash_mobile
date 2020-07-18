@@ -12,9 +12,13 @@ import {
 } from 'react-native';
 import { Button, Image, Input, Text } from 'react-native-elements';
 
+// Imports: Redux Actions
+import { connect } from 'react-redux';
+import { register } from '../../redux/actions/auth.actions';
+
 import svg from '../../assets/vector/access_account.png';
 
-export default class register extends Component {
+export class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,6 +26,7 @@ export default class register extends Component {
       phone: null,
       password: null,
       password2: null,
+      pin: 1234,
       isLoading: false,
     };
   }
@@ -32,12 +37,13 @@ export default class register extends Component {
       phone,
       password,
       password2,
+      pin,
     } = this.state;
     if (email && phone && password && password2) {
       if (password.length >= 8) {
         if (password === password2) {
-          this.setState({ isLoading: true });
-          ToastAndroid.show('Allowed', ToastAndroid.SHORT);
+          const body = { email, password, pin };
+          this.props.register(body);
         } else {
           ToastAndroid.show('Password not match', ToastAndroid.SHORT);
         }
@@ -50,7 +56,7 @@ export default class register extends Component {
   }
 
   render() {
-    const { isLoading } = this.state;
+    const { isLoading, errMsg } = this.props.auth;
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -65,6 +71,7 @@ export default class register extends Component {
             placeholder="Email address"
             keyboardType="email-address"
             onChangeText={(e) => this.setState({ email: e })}
+            errorMessage={errMsg}
             leftIcon={
               <Icon
                 name="envelope"
@@ -157,3 +164,12 @@ const styles = StyleSheet.create({
     color: '#3f3d56',
   },
 });
+
+const mapStateToProps = state => ({
+  auth: state.authReducer,
+});
+
+const mapDispatchToProps = { register };
+
+// Exports
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

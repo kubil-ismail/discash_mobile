@@ -2,11 +2,14 @@
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { Header, Card, Text, ListItem } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import QRCode from 'react-native-qrcode-svg';
 import logo from '../assets/discash.png';
 
-export default class payment extends Component {
+// Imports: Redux Actions
+import { connect } from 'react-redux';
+import { logout } from '../redux/actions/auth.actions';
+
+export class Payment extends Component {
   render() {
     return (
       <SafeAreaView>
@@ -77,7 +80,7 @@ const styles = StyleSheet.create({
   },
   timer: {
     textAlign: 'center',
-    color: '#f70000'
+    color: '#f70000',
   },
   paymentBar: {
     flex: 1,
@@ -85,3 +88,23 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
+
+// Map State To Props (Redux Store Passes State To Component)
+const mapStateToProps = (state) => {
+  // Redux Store --> Component
+  return {
+    auth: state.authReducer,
+  };
+};
+
+// Map Dispatch To Props (Dispatch Actions To Reducers. Reducers Then Modify The Data And Assign It To Your Props)
+const mapDispatchToProps = (dispatch) => {
+  // Action
+  return {
+    // logout
+    reduxLogout: (trueFalse) => dispatch(logout(trueFalse)),
+  };
+};
+
+// Exports
+export default connect(mapStateToProps, mapDispatchToProps)(Payment);
