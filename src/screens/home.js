@@ -61,23 +61,32 @@ export class home extends Component {
                 <View style={styles.childHead2}>
                   <TouchableOpacity
                     style={styles.headIcon}
-                    onPress={() => this.props.SET_PIN(true)}
+                    onPress={() => this.props.navigation.navigate('topUp')}
                   >
                     <Icon solid name="money-check-alt" size={25} color="#fff" />
                     <Text style={styles.fontWhite}>Top Up</Text>
                   </TouchableOpacity>
-                  <View style={styles.headIcon}>
+                  <TouchableOpacity
+                    style={styles.headIcon}
+                    onPress={() => this.props.navigation.navigate('transfer')}
+                  >
                     <Icon solid name="money-bill-wave-alt" size={25} color="#fff" />
                     <Text style={styles.fontWhite}>Transfer</Text>
-                  </View>
-                  <View style={styles.headIcon}>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.headIcon}
+                    onPress={() => this.props.navigation.navigate('ticket')}
+                  >
                     <Icon solid name="ticket-alt" size={25} color="#fff" />
                     <Text style={styles.fontWhite}>Ticket</Text>
-                  </View>
-                  <View style={styles.headIcon}>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.headIcon}
+                    onPress={() => this.props.navigation.navigate('wallet')}
+                  >
                     <Icon solid name="wallet" size={25} color="#fff" />
                     <Text style={styles.fontWhite}>Wallet</Text>
-                  </View>
+                  </TouchableOpacity>
                 </View>
               </View>
               {/* Head 2 */}

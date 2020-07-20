@@ -18,9 +18,12 @@ import EditProfile from '../screens/profile/edit.profile';
 import DetailInbox from '../screens/detail/inbox.detail';
 import DetailHistory from '../screens/detail/history.detail';
 import DetailPromo from '../screens/detail/promo.detail';
+import Transfer from '../screens/payment/transfer';
 
 // Payment
 import TopUp from '../screens/payment/topup';
+import Ticket from '../screens/payment/ticket';
+import Wallet from '../screens/payment/wallet';
 
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
@@ -34,6 +37,7 @@ export class Routes extends Component {
       pinStatus,
       payRequired,
       payStatus,
+      userId,
     } = this.props.auth;
     return (
       <Stack.Navigator>
@@ -72,11 +76,6 @@ export class Routes extends Component {
         {/* Payments */}
         {payRequired && payStatus === false && pinRequired === false &&  (
           <>
-            <Stack.Screen
-              options={{ headerShown: false }}
-              component={TopUp}
-              name={'topUp'}
-            />
           </>
         )}
 
@@ -87,6 +86,27 @@ export class Routes extends Component {
               options={{ headerShown: false }}
               component={User}
               name={'home'}
+            />
+            {/* Transacyions */}
+            <Stack.Screen
+              options={{ title: 'Top Up' }}
+              component={TopUp}
+              name={'topUp'}
+            />
+            <Stack.Screen
+              options={{ title: 'Transfer' }}
+              component={Transfer}
+              name={'transfer'}
+            />
+            <Stack.Screen
+              options={{ title: 'Scan Ticket' }}
+              component={Ticket}
+              name={'ticket'}
+            />
+            <Stack.Screen
+              options={{ title: 'My Wallet' }}
+              component={Wallet}
+              name={'wallet'}
             />
             {/* Edit page */}
             <Stack.Screen

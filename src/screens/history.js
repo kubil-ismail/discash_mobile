@@ -10,25 +10,29 @@ import {
 import { Header, ListItem } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
+// Imports: Component
+import Loader from '../component/loader';
+
 // Imports: Redux Actions
 import { connect } from 'react-redux';
-import { GET_HISTORY } from '../redux/actions/profile.actions';
+import { GET_HISTORY } from '../redux/actions/transaction.actions';
 
-export default class history extends Component {
+export class history extends Component {
   componentDidMount = () => {
     const { userId } = this.props.auth;
     this.props.GET_HISTORY({ id: userId });
   }
 
   render() {
-    const { transaction_data } = this.props.history
+    const { transaction_data, transaction_loading } = this.props.history;
     return (
       <SafeAreaView>
+        <Loader isLoading={transaction_loading} />
         <ScrollView>
           <Header
             placement="left"
             leftComponent={{
-              text: 'History',
+              text: 'Transactions',
               style: {
                 color: '#3f3d56',
                 fontSize: 20,
@@ -39,20 +43,26 @@ export default class history extends Component {
           />
 
           <View style={styles.mt_10} />
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('detailHistory')}
-          >
-            <ListItem
-              key={1}
-              leftIcon={
-                <Icon solid name="money-bill" size={30} />
-              }
-              title="Top Up Pulsa"
-              subtitle="Today, 13.43 PM"
-              bottomDivider
-              chevron
-            />
-          </TouchableOpacity>
+          {!transaction_loading && transaction_data.map((val, key) => (
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('detailHistory',{
+                transaction_date: val.date.slice(0, 10),
+                transaction_amount: val.price,
+                transaction_type: val.type,
+              })}
+            >
+              <ListItem
+                key={1}
+                leftIcon={
+                  <Icon solid name="money-bill" size={30} />
+                }
+                title={val.type}
+                subtitle={val.date.slice(0,10)}
+                bottomDivider
+                chevron
+              />
+            </TouchableOpacity>
+          ))}
         </ScrollView>
       </SafeAreaView>
     );

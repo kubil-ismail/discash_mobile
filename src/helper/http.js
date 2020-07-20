@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import axios from 'axios';
 
-const url = 'http://192.168.1.4:8000/';
+const url = 'https://api-discash.alipal.pw/';
 
 // Fetch Data
 export const get = async (data) => {

@@ -13,6 +13,7 @@ import svg from '../../assets/vector/shop.png';
 
 export default class inbox extends Component {
   render() {
+    const { transaction_date, transaction_amount, transaction_type } = this.props.route.params;
     return (
       <SafeAreaView>
         <ScrollView>
@@ -25,7 +26,7 @@ export default class inbox extends Component {
             />
             <Text h2 style={styles.txtCenter}>Transactions</Text>
             <Text style={styles.txtCenter}>
-              Hai discasher, kamu melakukan transaksi pada tanggal Today, 13.43 PM sebesar Rp 10.000
+              Hai discasher, kamu melakukan {transaction_type} pada {transaction_date} sebesar Rp {transaction_amount}
             </Text>
           </View>
         </ScrollView>

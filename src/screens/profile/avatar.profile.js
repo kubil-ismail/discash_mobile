@@ -59,6 +59,7 @@ export class profile extends Component {
       } else if (response.fileSize >= 2077116) {
         ToastAndroid.show('Max Size 2 Mb', ToastAndroid.SHORT);
       } else {
+        this.props.EDIT_AVATAR(response.uri);
         this.setState({
           filePath: response,
           fileData: response.data,
@@ -69,12 +70,12 @@ export class profile extends Component {
   }
 
   renderFileUri = () => {
-    if (this.state.fileUri) {
+    if (this.props.profile.profile_photo) {
       return <Avatar
         rounded
         size={200}
         containerStyle={styles.mb_10}
-        source={{ uri: this.state.fileUri }}
+        source={{ uri: this.props.profile.profile_photo }}
       />;
     } else {
       return <Avatar
@@ -145,6 +146,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     // GET_PROFILE
     GET_PROFILE: (trueFalse) => dispatch(GET_PROFILE(trueFalse)),
+    EDIT_AVATAR: (trueFalse) => dispatch(EDIT_AVATAR(trueFalse)),
     LOGOUT: () => dispatch(logout()),
   };
 };

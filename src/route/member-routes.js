@@ -44,16 +44,6 @@ export default class Member extends Component {
         />
         <BottomTab.Screen
           options={{
-            title: 'Pay',
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="qrcode" color={color} size={size} />
-            ),
-          }}
-          component={Payment}
-          name="payment"
-        />
-        <BottomTab.Screen
-          options={{
             title: 'Inbox',
             tabBarIcon: ({ color, size }) => (
               <Icon name="envelope" color={color} size={size} />

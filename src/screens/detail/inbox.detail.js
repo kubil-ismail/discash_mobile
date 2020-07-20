@@ -13,6 +13,7 @@ import svg from '../../assets/vector/chat.png';
 
 export default class inbox extends Component {
   render() {
+    const { inboxTitle, inboxDesc } = this.props.route.params;
     return (
       <SafeAreaView>
         <ScrollView>
@@ -23,8 +24,8 @@ export default class inbox extends Component {
               resizeMode="contain"
               PlaceholderContent={<ActivityIndicator />}
             />
-            <Text h2 style={styles.txtCenter}>Info Login</Text>
-            <Text style={styles.txtCenter}>Hai discasher, kamu telah login pada tanggal Today, 13.43 PM</Text>
+            <Text h2 style={styles.txtCenter}>{inboxTitle}</Text>
+            <Text style={styles.txtCenter}>Hai discasher, kamu telah {inboxDesc} pada tanggal Today, 13.43 PM</Text>
           </View>
         </ScrollView>
       </SafeAreaView>

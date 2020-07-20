@@ -34,7 +34,7 @@ export class profile extends Component {
   }
 
   render() {
-    const { profile_data, profile_loading } = this.props.profile;
+    const { profile_data, profile_loading, profile_photo } = this.props.profile;
     return (
       <SafeAreaView>
         <Loader isLoading={profile_loading} />
@@ -43,14 +43,25 @@ export class profile extends Component {
           <View style={styles.mt_10} />
 
           <TouchableOpacity onPress={() => this.editAvatar()}>
-            <ListItem
-              key={1}
-              leftAvatar={{ source: avatar }}
-              title={profile_loading === false ? profile_data.fullname : '-' }
-              subtitle="Member"
-              bottomDivider
-              chevron
-            />
+            {profile_photo ? (
+              <ListItem
+                key={1}
+                leftAvatar={{ url: profile_photo }}
+                title={profile_loading === false ? profile_data.fullname : '-'}
+                subtitle="Member"
+                bottomDivider
+                chevron
+              />
+            ) : (
+              <ListItem
+                key={1}
+                leftAvatar={{ source: avatar }}
+                title={profile_loading === false ? profile_data.fullname : '-' }
+                subtitle="Member"
+                bottomDivider
+                chevron
+              />
+            )}
           </TouchableOpacity>
           {profile_loading === false &&  (
             <>

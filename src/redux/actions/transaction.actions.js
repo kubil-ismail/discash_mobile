@@ -5,6 +5,6 @@ import { get } from '../../helper/http';
 export const GET_HISTORY = (request) => ({
   type: 'GET_HISTORY',
   payload: get({
-    url: `transactions/history/${request.id}`,
+    url: `transactions/user/${request.id}`,
   }),
 });

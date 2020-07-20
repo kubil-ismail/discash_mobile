@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 // Initial State
 const initialState = {
-  transaction_data: null,
+  transaction_data: [],
   transaction_loading: false,
   transaction_err: false,
   errMsg: null,

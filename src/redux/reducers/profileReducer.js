@@ -2,6 +2,7 @@
 // Initial State
 const initialState = {
   profile_data: null,
+  profile_photo: null,
   profile_inbox_data: null,
   profile_loading: false,
   profile_err: false,
@@ -34,7 +35,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         ...{
-          profile_data: result,
+          profile_data: result[0],
           profile_loading: false,
           profile_err: false,
           errMsg: '',
@@ -58,7 +59,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         profile_loading: false,
         profile_err: true,
-        errMsg: message
+        errMsg: message,
       };
     }
     case 'GET_INBOX_FULFILLED': {
@@ -66,7 +67,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         ...{
-          profile_inbox_data: result[0],
+          profile_inbox_data: result,
           profile_loading: false,
           profile_err: false,
           errMsg: '',
@@ -120,7 +121,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         profile_loading: false,
         profile_err: true,
-        errMsg: message
+        errMsg: message,
       };
     }
     case 'DELETE_PROFILE_FULFILLED': {
@@ -130,6 +131,14 @@ const authReducer = (state = initialState, action) => {
           profile_loading: false,
           profile_err: false,
           errMsg: '',
+        },
+      };
+    }
+    case 'EDIT_AVATAR': {
+      return {
+        ...state,
+        ...{
+          profile_photo: action.payload,
         },
       };
     }

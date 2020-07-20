@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  ToastAndroid,
 } from 'react-native';
 import { Avatar, Button, Input } from 'react-native-elements';
 
@@ -15,9 +16,10 @@ import { logout } from '../../redux/actions/auth.actions';
 
 // Imports: Component
 import Loader from '../../component/loader';
-
 import avatar from '../../assets/profile.png';
+import axios from 'axios';
 
+const url = 'https://api-discash.alipal.pw/';
 export class profile extends Component {
   constructor(props) {
     super(props);
@@ -36,8 +38,25 @@ export class profile extends Component {
   }
 
   updateProfile = () => {
-    const { userId } = this.props.auth;
-    this.props.GET_PROFILE({ id: userId, body: this.state });
+    const { userId, apikey } = this.props.auth;
+    const config = {
+      headers: {
+        Authorization: apikey,
+      },
+    };
+    const body = {
+      fullname: this.state.fullname,
+      phone: this.state.phone,
+      gender: this.state.gender,
+    };
+    axios.patch(`${url}user/${userId}`, body, config)
+    .then(() => {
+      ToastAndroid.show('Update success', ToastAndroid.SHORT);
+      this.props.GET_PROFILE({ id: userId });
+    })
+    .catch((err) => {
+      ToastAndroid.show(err.response.message, ToastAndroid.SHORT);
+    });
   }
 
   render() {
@@ -67,11 +86,6 @@ export class profile extends Component {
               placeholder="Gender"
               defaultValue={this.state.gender}
               onChangeText={(e) => this.setState({ gender: e })}
-            />
-            <Input
-              placeholder="Birthdate"
-              defaultValue={this.state.birthdate}
-              onChangeText={(e) => this.setState({ birthdate: e })}
             />
             <Button
               title="Update Profile"

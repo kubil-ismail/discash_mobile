@@ -10,6 +10,9 @@ import {
 import { Header, ListItem } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
+// Imports: Component
+import Loader from '../component/loader';
+
 // Imports: Redux Actions
 import { connect } from 'react-redux';
 import { GET_INBOX } from '../redux/actions/profile.actions';
@@ -21,9 +24,11 @@ class inbox extends Component {
   }
 
   render() {
-    const { profile_inbox_data } = this.props.profile
+    const { profile_inbox_data, profile_loading } = this.props.profile
     return (
       <SafeAreaView>
+        {console.log('oke',profile_inbox_data)}
+        <Loader isLoading={profile_loading} />
         <ScrollView>
           <Header
             placement="left"
@@ -39,31 +44,25 @@ class inbox extends Component {
           />
 
           <View style={styles.mt_10} />
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('detailInbox')}
-          >
-            <ListItem
-              key={1}
-              leftIcon={
-                <Icon solid name="envelope" size={30} />
-              }
-              title="Info Login"
-              subtitle="Today, 13.43 PM"
-              bottomDivider
-              chevron
-            />
-          </TouchableOpacity>
-          <ListItem
-            key={2}
-            leftIcon={
-              <Icon solid name="envelope-open" size={30} />
-            }
-            containerStyle={styles.read}
-            title="Info Login"
-            subtitle="Today, 13.43 PM"
-            bottomDivider
-            chevron
-          />
+          {profile_inbox_data !== null && profile_inbox_data.map((val, key) => (
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('detailInbox',{
+                inboxTitle: val.title,
+                inboxDesc: val.description
+              })}
+            >
+              <ListItem
+                key={key}
+                leftIcon={
+                  <Icon solid name="envelope" size={30} />
+                }
+                title={val.title}
+                subtitle={val.description}
+                bottomDivider
+                chevron
+              />
+            </TouchableOpacity>
+          ))}
         </ScrollView>
       </SafeAreaView>
     );

@@ -1,18 +1,18 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
-import { Header, Card, Text, ListItem, Button } from 'react-native-elements';
+import { Header, Card, Text, ListItem } from 'react-native-elements';
 import QRCode from 'react-native-qrcode-svg';
 import logo from '../../assets/discash.png';
 
 // Imports: Redux Actions
 import { connect } from 'react-redux';
-import { pay } from '../../redux/actions/auth.actions';
-const url = 'https://api-discash.alipal.pw/';
+import { logout } from '../../redux/actions/auth.actions';
 
-export class Topup extends Component {
+export class Payment extends Component {
   render() {
     const { userId } = this.props.auth;
+    const url = `https://api-discash.alipal.pw/transfer/money?payment=1&userid=${userId}&price=${15000}&account_number=${32}&name=ticket%20kereta`;
     return (
       <SafeAreaView>
         <ScrollView>
@@ -23,7 +23,7 @@ export class Topup extends Component {
             </Text>
             <View style={styles.qr}>
               <QRCode
-                value={`${userId}`}
+                value={url}
                 size={150}
               />
             </View>
@@ -72,9 +72,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#f70000',
   },
-  bgRed: {
-    backgroundColor: '#f70000',
-  },
   paymentBar: {
     flex: 1,
     paddingHorizontal: 15,
@@ -82,13 +79,11 @@ const styles = StyleSheet.create({
   },
 });
 
-
 // Map State To Props (Redux Store Passes State To Component)
 const mapStateToProps = (state) => {
   // Redux Store --> Component
   return {
     auth: state.authReducer,
-    profile: state.profileReducer,
   };
 };
 
@@ -96,10 +91,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   // Action
   return {
-    // GET_PROFILE
-    SET_PAY: (request) => dispatch(pay(request)),
+    // logout
+    reduxLogout: (trueFalse) => dispatch(logout(trueFalse)),
   };
 };
 
 // Exports
-export default connect(mapStateToProps, mapDispatchToProps)(Topup);
+export default connect(mapStateToProps, mapDispatchToProps)(Payment);

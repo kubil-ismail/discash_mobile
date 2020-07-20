@@ -19,25 +19,24 @@ import Loader from '../../component/loader';
 import { connect } from 'react-redux';
 import { pin, pay } from '../../redux/actions/auth.actions';
 import axios from 'axios';
-const url = 'http://192.168.1.4:8000/';
+const url = 'https://api-discash.alipal.pw/';
 
 import svg from '../../assets/vector/pin.png';
 
 export class Pins extends Component {
   constructor(props) {
     super(props);
-    const { profile_data } = this.props.profile;
+    const { userId } = this.props.auth;
     this.state = {
       code: null,
-      userId: profile_data.user_id,
+      userId: userId,
       isLoading: false,
     };
   }
 
   onCheck = () => {
-    const { code, userId } = this.state;
     this.setState({ isLoading: true });
-
+    const { code, userId } = this.state;
     if (code) {
       if (code.length === 4) {
         if (userId) {
@@ -46,18 +45,21 @@ export class Pins extends Component {
             .then(() => {
               this.props.SET_PIN(false);
               this.props.SET_PAY(true);
+              this.setState({ isLoading: false });
             })
-            .catch((err) => ToastAndroid.show(err.response.data.message, ToastAndroid.SHORT));
+            .catch(() => this.setState({ isLoading: false }));
         } else {
           ToastAndroid.show('Something wrong, Try again', ToastAndroid.SHORT);
+          this.setState({ isLoading: false });
         }
       } else {
         ToastAndroid.show('Pin must be greater than 4 characters', ToastAndroid.SHORT);
+        this.setState({ isLoading: false });
       }
     } else {
       ToastAndroid.show('Pin must filled', ToastAndroid.SHORT);
+      this.setState({ isLoading: false });
     }
-    this.setState({ isLoading: false });
   }
   render() {
     const { code, isLoading } = this.state;
